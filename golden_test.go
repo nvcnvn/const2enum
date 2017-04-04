@@ -48,18 +48,28 @@ const (
 const day_out = `
 const _Day_name = "MondayTuesdayWednesdayThursdayFridaySaturdaySunday"
 
-var _Day_map = map[Day]string{
-	0: _Day_name[0:6],
-	1: _Day_name[6:13],
-	2: _Day_name[13:22],
-	3: _Day_name[22:30],
-	4: _Day_name[30:36],
-	5: _Day_name[36:44],
-	6: _Day_name[44:50],
+var _Day_key_slice = []interface{}{
+	Day(0),
+	Day(1),
+	Day(2),
+	Day(3),
+	Day(4),
+	Day(5),
+	Day(6),
 }
 
-func (i Day) GetMap() map[Day]string {
-	return _Day_map
+var _Day_val_slice = []string{
+	_Day_name[0:6],
+	_Day_name[6:13],
+	_Day_name[13:22],
+	_Day_name[22:30],
+	_Day_name[30:36],
+	_Day_name[36:44],
+	_Day_name[44:50],
+}
+
+func (i Day) GetEnumSlices() ([]interface{}, []string) {
+	return _Day_key_slice, _Day_val_slice
 }
 `
 
@@ -78,14 +88,20 @@ const (
 const offset_out = `
 const _Number_name = "OneTwoThree"
 
-var _Number_map = map[Number]string{
-	1: _Number_name[0:3],
-	2: _Number_name[3:6],
-	3: _Number_name[6:11],
+var _Number_key_slice = []interface{}{
+	Number(1),
+	Number(2),
+	Number(3),
 }
 
-func (i Number) GetMap() map[Number]string {
-	return _Number_map
+var _Number_val_slice = []string{
+	_Number_name[0:3],
+	_Number_name[3:6],
+	_Number_name[6:11],
+}
+
+func (i Number) GetEnumSlices() ([]interface{}, []string) {
+	return _Number_key_slice, _Number_val_slice
 }
 `
 
@@ -106,19 +122,30 @@ const (
 const gap_out = `
 const _Gap_name = "TwoThreeFiveSixSevenEightNineEleven"
 
-var _Gap_map = map[Gap]string{
-	2:  _Gap_name[0:3],
-	3:  _Gap_name[3:8],
-	5:  _Gap_name[8:12],
-	6:  _Gap_name[12:15],
-	7:  _Gap_name[15:20],
-	8:  _Gap_name[20:25],
-	9:  _Gap_name[25:29],
-	11: _Gap_name[29:35],
+var _Gap_key_slice = []interface{}{
+	Gap(2),
+	Gap(3),
+	Gap(5),
+	Gap(6),
+	Gap(7),
+	Gap(8),
+	Gap(9),
+	Gap(11),
 }
 
-func (i Gap) GetMap() map[Gap]string {
-	return _Gap_map
+var _Gap_val_slice = []string{
+	_Gap_name[0:3],
+	_Gap_name[3:8],
+	_Gap_name[8:12],
+	_Gap_name[12:15],
+	_Gap_name[15:20],
+	_Gap_name[20:25],
+	_Gap_name[25:29],
+	_Gap_name[29:35],
+}
+
+func (i Gap) GetEnumSlices() ([]interface{}, []string) {
+	return _Gap_key_slice, _Gap_val_slice
 }
 `
 
@@ -136,16 +163,24 @@ const (
 const num_out = `
 const _Num_name = "m_2m_1m0m1m2"
 
-var _Num_map = map[Num]string{
-	-2: _Num_name[0:3],
-	-1: _Num_name[3:6],
-	0:  _Num_name[6:8],
-	1:  _Num_name[8:10],
-	2:  _Num_name[10:12],
+var _Num_key_slice = []interface{}{
+	Num(-2),
+	Num(-1),
+	Num(0),
+	Num(1),
+	Num(2),
 }
 
-func (i Num) GetMap() map[Num]string {
-	return _Num_map
+var _Num_val_slice = []string{
+	_Num_name[0:3],
+	_Num_name[3:6],
+	_Num_name[6:8],
+	_Num_name[8:10],
+	_Num_name[10:12],
+}
+
+func (i Num) GetEnumSlices() ([]interface{}, []string) {
+	return _Num_key_slice, _Num_val_slice
 }
 `
 
@@ -166,16 +201,24 @@ const (
 const unum_out = `
 const _Unum_name = "m0m1m2m_2m_1"
 
-var _Unum_map = map[Unum]string{
-	0:   _Unum_name[0:2],
-	1:   _Unum_name[2:4],
-	2:   _Unum_name[4:6],
-	253: _Unum_name[6:9],
-	254: _Unum_name[9:12],
+var _Unum_key_slice = []interface{}{
+	Unum(0),
+	Unum(1),
+	Unum(2),
+	Unum(253),
+	Unum(254),
 }
 
-func (i Unum) GetMap() map[Unum]string {
-	return _Unum_map
+var _Unum_val_slice = []string{
+	_Unum_name[0:2],
+	_Unum_name[2:4],
+	_Unum_name[4:6],
+	_Unum_name[6:9],
+	_Unum_name[9:12],
+}
+
+func (i Unum) GetEnumSlices() ([]interface{}, []string) {
+	return _Unum_key_slice, _Unum_val_slice
 }
 `
 
@@ -203,24 +246,40 @@ const (
 const prime_out = `
 const _Prime_name = "p2p3p5p7p11p13p17p19p23p29p37p41p43"
 
-var _Prime_map = map[Prime]string{
-	2:  _Prime_name[0:2],
-	3:  _Prime_name[2:4],
-	5:  _Prime_name[4:6],
-	7:  _Prime_name[6:8],
-	11: _Prime_name[8:11],
-	13: _Prime_name[11:14],
-	17: _Prime_name[14:17],
-	19: _Prime_name[17:20],
-	23: _Prime_name[20:23],
-	29: _Prime_name[23:26],
-	31: _Prime_name[26:29],
-	41: _Prime_name[29:32],
-	43: _Prime_name[32:35],
+var _Prime_key_slice = []interface{}{
+	Prime(2),
+	Prime(3),
+	Prime(5),
+	Prime(7),
+	Prime(11),
+	Prime(13),
+	Prime(17),
+	Prime(19),
+	Prime(23),
+	Prime(29),
+	Prime(31),
+	Prime(41),
+	Prime(43),
 }
 
-func (i Prime) GetMap() map[Prime]string {
-	return _Prime_map
+var _Prime_val_slice = []string{
+	_Prime_name[0:2],
+	_Prime_name[2:4],
+	_Prime_name[4:6],
+	_Prime_name[6:8],
+	_Prime_name[8:11],
+	_Prime_name[11:14],
+	_Prime_name[14:17],
+	_Prime_name[17:20],
+	_Prime_name[20:23],
+	_Prime_name[23:26],
+	_Prime_name[26:29],
+	_Prime_name[29:32],
+	_Prime_name[32:35],
+}
+
+func (i Prime) GetEnumSlices() ([]interface{}, []string) {
+	return _Prime_key_slice, _Prime_val_slice
 }
 `
 
