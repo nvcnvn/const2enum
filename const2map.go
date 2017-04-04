@@ -29,7 +29,7 @@
 //
 // running this command
 //
-//	stringer -type=Pill
+//	const2enum -type=Pill
 //
 // in the same directory will create the file pill_string.go, in package painkiller,
 // containing a definition of
@@ -42,7 +42,7 @@
 //
 // Typically this process would be run using go generate, like this:
 //
-//	//go:generate stringer -type=Pill
+//	//go:generate const2enum -type=Pill
 //
 // If multiple constants have the same value, the lexically first matching name will
 // be used (in the example, Acetaminophen will print as "Paracetamol").
@@ -56,7 +56,7 @@
 // where t is the lower-cased name of the first type listed. It can be overridden
 // with the -output flag.
 //
-package main // import "github.com/vearutop/const2map"
+package main // import "github.com/nvcnvn/const2enum"
 
 import (
 	"bytes"
@@ -485,20 +485,30 @@ func (g *Generator) declareNameVars(runs [][]Value, typeName string, suffix stri
 func (g *Generator) buildMap(runs [][]Value, typeName string) {
 	g.Printf("\n")
 	g.declareNameVars(runs, typeName, "")
-	g.Printf("\nvar _%s_map = map[%s]string{\n", typeName, typeName)
+
+	keyBuff := bytes.NewBufferString("\nvar _" + typeName + "_key_slice = []interface{}{\n")
+	valBuff := bytes.NewBufferString("\nvar _" + typeName + "_val_slice = []string{\n")
+
 	n := 0
 	for _, values := range runs {
 		for _, value := range values {
-			g.Printf("\t%s: _%s_name[%d:%d],\n", &value, typeName, n, n+len(value.name))
+			fmt.Fprintf(keyBuff, "\t%s(%s),\n", typeName, &value)
+			fmt.Fprintf(valBuff, "\t_%s_name[%d:%d],\n", typeName, n, n+len(value.name))
 			n += len(value.name)
 		}
 	}
-	g.Printf("}\n\n")
+
+	fmt.Fprintf(keyBuff, "}\n\n")
+	fmt.Fprintf(valBuff, "}\n\n")
+
+	g.Printf(keyBuff.String())
+	g.Printf(valBuff.String())
+
 	g.Printf(stringMap, typeName)
 }
 
 // Argument to format is the type name.
-const stringMap = `func (i %[1]s) GetMap() map[%[1]s]string {
-	return _%[1]s_map
+const stringMap = `func (i %[1]s) GetEnumSlices() ([]interface{}, []string) {
+	return _%[1]s_key_slice, _%[1]s_val_slice
 }
 `
